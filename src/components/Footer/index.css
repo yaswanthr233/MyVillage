@@ -1,0 +1,34 @@
+.footer-container{
+    height: 5vh;
+    background-color: #ffffffff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 83%;
+  display:flex;
+  padding: 10px 30px;
+  justify-content: space-between;
+  border-top: 1px solid #e0e0e0;
+}
+
+.home-btn{
+    background-color: transparent;
+    border:none;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+    font-family: 'poppins', sans-serif;
+    margin-left: -10px;
+}
+
+.active{
+    font-weight: 600;
+    color: #08c12a;
+}
+
+.active-text{
+    font-weight: 600;
+    color: #08c12a;
+    background-color: transparent;
+}

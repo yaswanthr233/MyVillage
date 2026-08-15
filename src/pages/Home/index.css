@@ -1,0 +1,50 @@
+.home-container{
+    background-color: #FDFDFD;
+    padding-right: 15px;
+    padding-top: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.home-shortcuts-container{
+    padding-left: 20px;
+    
+}
+
+.welcome-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    font-family: 'poppins', sans-serif;
+}
+
+.welcome-subtitle{
+    margin-top: 5px;
+    font-size: 10px;
+    color: #666666;
+    font-weight: 500;
+}
+
+.home-shortcuts-list-container{
+    display: flex;
+    list-style-type: none;
+    margin-left: -40px;
+    gap: 10px;
+}
+.divider{
+    border: none;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.discussions{
+    height: 48vh;
+    
+}
+
+.discussions-title{
+    font-size: 16px;
+    font-weight: bold;
+}
