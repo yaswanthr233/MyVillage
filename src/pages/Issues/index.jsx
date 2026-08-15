@@ -117,7 +117,7 @@ const Issues =  () => {
       }
     );
 
-    const imageData = await response.json();=
+    const imageData = await response.json();
     console.log("CLOUDINARY RESPONSE:", imageData);
 
     if (!response.ok || !imageData.secure_url) {
