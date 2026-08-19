@@ -243,3 +243,20 @@
     margin-top: 10px;
     font-weight: bold;
 }
+
+
+.report-issue-form-image-preview{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.loading-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 10px;
+}

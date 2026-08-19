@@ -34,7 +34,7 @@
     font-size: 14px;
     color: #666;
     margin-top: 5px;
-    min-height: 60px;
+    min-height: 30px;
     width: 100%;
 }
 
@@ -61,4 +61,11 @@
     color: #000;
     text-align: center;
     width: 100%;
+}
+
+.discussion-item-image{
+    width: 100%;
+    height: auto;
+    margin-top: auto;
+    border-radius: 5px;
 }

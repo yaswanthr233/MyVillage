@@ -15,12 +15,16 @@ import { useNavigate } from 'react-router-dom'
 
 const Issues =  () => {
     const navigate = useNavigate();
+    const jwtToken = Cookies.get('jwt_token');
+    const userId = localStorage.getItem('userId');
     const [issues, setIssues] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [activeCategory, setActiveCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredIssues, setFilteredIssues] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
     const [formData, setFormData] = useState({
         category: 'ROAD',
         title: '',
@@ -98,52 +102,66 @@ const Issues =  () => {
     
 
     const handleFiles = async (event) => {
-  const file = event.target.files[0];
+    const file = event.target.files[0];
 
-  if (!file) return;
-
-  try {
-    setIsUploading(true);
-
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "my_village");
-
-    const response = await fetch(
-      "https://api.cloudinary.com/v1_1/duokznlha/image/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
-
-    const imageData = await response.json();
-    console.log("CLOUDINARY RESPONSE:", imageData);
-
-    if (!response.ok || !imageData.secure_url) {
-      throw new Error(
-        imageData.error?.message || "Image upload failed"
-      );
+    if (!file) {
+        console.log("No file selected");
+        return;
     }
 
-    const imageUrl = await imageData.secure_url;
+    try {
+        setIsUploading(true);
 
-    setFormData((prev) => ({
-      ...prev,
-      image: imageUrl,
-    }));
+        const data = new FormData();
 
-  } catch (error) {
-    console.error("Image upload error:", error);
-  } finally {
-    setIsUploading(false);
-  }
+        data.append("file", file);
+        data.append("upload_preset", "my_village");
+
+        console.log("Uploading file:", file.name);
+
+        const response = await fetch(
+            "https://api.cloudinary.com/v1_1/duokznlha/image/upload",
+            {
+                method: "POST",
+                body: data,
+            }
+        );
+
+        console.log("Cloudinary status:", response.status);
+
+        const imageData = await response.json();
+
+        console.log("Cloudinary response:", imageData);
+
+        if (!response.ok) {
+            throw new Error(
+                imageData.error?.message || "Cloudinary upload failed"
+            );
+        }
+
+        if (!imageData.secure_url) {
+            throw new Error("Cloudinary did not return secure_url");
+        }
+
+        console.log("IMAGE URL:", imageData.secure_url);
+
+        setFormData((prev) => ({
+            ...prev,
+            image: imageData.secure_url,
+        }));
+
+    } catch (error) {
+        console.error("IMAGE UPLOAD ERROR:", error);
+    } finally {
+        setIsUploading(false);
+    }
 };
 
     const onSubmitReportIssue = async (event) => {
+        event.preventDefault();
         try{
             const token = Cookies.get('jwt_token');
-            event.preventDefault();
+            console.log("From submit" + JSON.stringify(formData));
             const options = {
                 method: 'POST',
                 headers: {
@@ -155,9 +173,22 @@ const Issues =  () => {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/issues`, options);
             if(response.ok){
                 const data = await response.json();
-                console.log(data);
+                console.log('Issue reported successfully:', data.issue);
                 setIsPopupOpen(false);
                 navigate('/issues');
+
+            }
+            const fetchIssuesResponse = await fetch(`${import.meta.env.VITE_API_URL}/issues`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
+                }
+            });
+            if(fetchIssuesResponse.ok){
+                const data = await fetchIssuesResponse.json();
+                setIssues(data);
+                setFilteredIssues(data);
             }
         } catch (error) {
             console.error('Error reporting issue:', error.message);
@@ -241,7 +272,16 @@ const Issues =  () => {
                                         <IoShieldCheckmarkOutline size={16} color="#08c12a" />
                                         <p className="add-issue-rules">Be respectful and follow the community guidelines.</p>
                                     </div>
-                                    <button type="submit" className="report-issue-form-submit-btn">Submit Issue</button>
+                                    {
+                                        isUploading? (
+                                            <div className="loading-container">
+                                                <BeatLoader color="#1bd233" size={15} />
+                                            </div>
+                                            
+                                        ) : (
+                                             <button type="submit" className="report-issue-form-submit-btn">Submit Issue</button>
+                                        )
+                                    }
                                 </form>
                             </div>
                         </div>

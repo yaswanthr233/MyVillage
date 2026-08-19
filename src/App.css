@@ -15,3 +15,17 @@ body,
 }
 
 
+@media (min-width: 768px){
+    .pc-container{
+        display: flex;
+        height: 100%;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .pc-title{
+        font-size: 24px;
+        text-align: center;
+    }
+}

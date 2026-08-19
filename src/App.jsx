@@ -10,7 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Discussions from './pages/Discussions/index.jsx'
 import Navbar from './components/Navbar/index.jsx'
 import Footer from './components/Footer/index.jsx'
-import Community from './pages/Community/index.jsx'
+import GramPanchayat from './pages/GramPanchayat/index.jsx'
 import Issues from './pages/Issues/index.jsx'
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
   
   return (
     <div className="App">
+      
     {!hideLayout && <Navbar />}
     
       <Routes>
@@ -27,11 +28,27 @@ function App() {
             <Home />
           </ProtectedRoute>
         } />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} /> 
-        <Route path="/discussions" element={<Discussions />} /> 
-        <Route path="/community" element={<Community />}/>
-        <Route path="/issues" element={<Issues />} /> 
+        <Route path="/login" element={
+          <Login />
+          } />
+        <Route path="/register" element={
+            <Register />
+        } />
+        <Route path="/discussions" element={
+          <ProtectedRoute>
+          <Discussions />
+          </ProtectedRoute>
+          } /> 
+        <Route path="/grampanchayat" element={
+          <ProtectedRoute>
+            <GramPanchayat />
+          </ProtectedRoute>
+        }/>
+        <Route path="/issues" element={
+          <ProtectedRoute>
+            <Issues />
+          </ProtectedRoute>
+        } />
       </Routes>
       {!hideLayout && <Footer/>}
       </div>

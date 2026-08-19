@@ -8,7 +8,6 @@ const IssueItem = (props) => {
     const {title, description, location, userName, createdAt,status,image} = props;
     const statusText = status === 'OPEN' ? 'Open' : status === 'IN_PROGRESS' ? 'In Progress' : status === 'RESOLVED' ? 'Resolved' : 'Closed';
     const createdAtDate = new Date(createdAt);
-    console.log("IssueItem props:", props);
     return (
         <li className="issue-item-container">
             <div className="issue-profile-container">

@@ -9,10 +9,10 @@ import BeatLoader from "react-spinners/BeatLoader";
 import { Navigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate()
     if(Cookies.get('jwt_token') !== undefined){
         return <Navigate to="/" replace />
     }
-    const navigate = useNavigate()
     const onNavigateToRegister = () => {
         navigate('/register')
     } 
@@ -123,6 +123,7 @@ const Login = () => {
         </div>
     )
     }
+
     const renderLoadingView = () => {
         return (
             <div className="loading-container">

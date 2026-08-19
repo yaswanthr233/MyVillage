@@ -15,171 +15,68 @@ import { useNavigate } from 'react-router-dom';
 
 const Discussions = () => {
     const navigate = useNavigate();
-    if(Cookies.get('jwt_token') === undefined){
-        navigate('/login');
-    }
-    const [formData, setFormData] = useState({
-        title: '',
-        content: '',
-        category: 'GENERAL',
-    })
-    const [activeTab, setActiveTab] = useState('all');
-    const [activeCategory, setActiveCategory] = useState('GENERAL');
     const [discussions, setDiscussions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [searchInputValue, setSearchInputValue] = useState('');
-    const [filteredDiscussions, setFilteredDiscussions] = useState([]);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState({
-        titleError: false,
-        contentError: false
-    })
-    const [count, setCount] = useState({
-        titleCount: 0,
-        contentCount: 0
-    })
-
-
-
+    const [activeCategory, setActiveCategory] = useState('GENERAL');
+    const [activeTab, setActiveTab] = useState('ALL');
+    const [searchInputValue, setSearchInputValue] = useState('');
+    const [filteredDiscussions, setFilteredDiscussions] = useState(discussions);
+    const [errorMessage, setErrorMessage] = useState({ titleError: false, contentError: false, imageError: '' });
+    const [isUploading, setIsUploading] = useState(false);
+    const [formData, setFormData] = useState({ title: '', content: '' , imageUrl: null});
 
     useEffect(() => {
         const fetchDiscussions = async () => {
             const jwtToken = Cookies.get('jwt_token');
-            const options = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${jwtToken}`
-                }
-            }
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/discussions`, options);
-            if(response.ok){
-                const data = await response.json();
-                console.log(data);
-                const formattedData = data.map(discussion => {
-                    return {
-                        id: discussion.discussion_id,
-                        userId: discussion.user_id,
-                        category: discussion.category,
-                        content: discussion.content,
-                        title: discussion.title,
-                        createdAt: discussion.created_at,
-                        likesCount: discussion.likes_count,
-                        imageUrl: discussion.image_url,
-                        name: discussion.name,
-                        role: discussion.role
-                    }
-                });
-                setDiscussions(formattedData);
-                setIsLoading(false);
-                setFilteredDiscussions(formattedData);
+            if(!jwtToken){
+                navigate('/login');
             } else {
-                console.error('Failed to fetch discussions');
+                const apiUrl = `${import.meta.env.VITE_API_URL}/discussions`;
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${jwtToken}`,
+                    },
+                };
+                try {
+                    const response = await fetch(apiUrl, options);
+                    if (response.ok) {
+                        const data = await response.json();
+                        setDiscussions(data);
+                        setFilteredDiscussions(data);
+                        console.log('Fetched discussions:', data);
+                    }
+                } catch (error) {
+                    console.error('Error fetching discussions:', error);
+                } finally {
+                    setIsLoading(false);
+                }
             }
         }
         fetchDiscussions();
     },[])
 
-    
-
+    const onSearchChange = (event) => {
+        setSearchInputValue(event.target.value);
+        const filteredDiscussions = discussions.filter(discussion => discussion.title.toLowerCase().includes(event.target.value.toLowerCase()));
+        setFilteredDiscussions(filteredDiscussions);
+    }
     const onFilterAll = () => {
-        setActiveTab('all');
+        setActiveTab('ALL');
         setFilteredDiscussions(discussions);
     }
 
     const onFilterGeneral = () => {
-        setActiveTab('general');
-        setFilteredDiscussions(discussions.filter(discussion => discussion.category === 'GENERAL'));
+        setActiveTab('GENERAL');
+        const filteredDiscussions = discussions.filter(discussion => discussion.category === 'GENERAL');
+        setFilteredDiscussions(filteredDiscussions);
     }
-    const onFilterIssues = () => {
-        setActiveTab('issues');
-        setFilteredDiscussions(discussions.filter(discussion => discussion.category === 'ISSUES'));
-    }
-
     const onFilterEvents = () => {
-        setActiveTab('events');
-        setFilteredDiscussions(discussions.filter(discussion => discussion.category === 'EVENTS'));
+        setActiveTab('EVENTS');
+        const filteredDiscussions = discussions.filter(discussion => discussion.category === 'EVENTS');
+        setFilteredDiscussions(filteredDiscussions);
     }
-
-    const onSearchChange = (event) => {
-        const searchValue = event.target.value;
-        setSearchInputValue(searchValue);
-        setFilteredDiscussions(discussions.filter(discussion => discussion.title.toLowerCase().includes(searchValue.toLowerCase())));
-    }
-
-    const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (count.titleCount === 0 || count.contentCount === 0) {
-        setErrorMessage({
-            titleError: count.titleCount === 0,
-            contentError: count.contentCount === 0
-        });
-        return;
-    }
-
-    const jwtToken = Cookies.get('jwt_token');
-    const userId = localStorage.getItem('userId');
-    const discussionData = {
-        title: formData.title,
-        content: formData.content,
-        category: activeCategory,
-        userId: userId
-    };
-
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${jwtToken}`
-        },
-        body: JSON.stringify(discussionData)
-    };
-
-    try {
-        const response = await fetch(
-            `${import.meta.env.VITE_API_URL}/discussions`,
-            options
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-            console.log(data);
-            navigate("/");
-        } else {
-            console.error('Failed to create discussion');
-        }
-    } catch (error) {
-        console.error('Error creating discussion:', error);
-    }
-    };
-
-    const onTitleChange = (event) => {
-        const titleValue = event.target.value;
-        setCount(prevState => ({
-            ...prevState,
-            titleCount: titleValue.length
-        }))
-        setFormData(prevState => ({
-            ...prevState,
-            title: titleValue
-        }))
-    }
-
-    const onContentChange = (event) => {
-        const contentValue = event.target.value;
-        setCount(prevState => ({
-            ...prevState,
-            contentCount: contentValue.length
-        }))
-        setFormData(prevState => ({
-            ...prevState,
-            content: contentValue
-        }))
-    }
-   
-
     const renderLoadingView = () => {
         return (
             <div className="loading-container">
@@ -187,6 +84,112 @@ const Discussions = () => {
             </div>
         )
     }
+
+    const onTitleChange = (event) => {
+        setFormData({ ...formData, title: event.target.value });
+    }
+    const onContentChange = (event) => {
+        setFormData({ ...formData, content: event.target.value });
+    }
+
+   const handleFiles = async (event) => {
+    const file = event.target.files[0];
+
+    if (!file) {
+        console.log("No file selected");
+        return;
+    }
+
+    try {
+        setIsUploading(true);
+
+        const data = new FormData();
+
+        data.append("file", file);
+        data.append("upload_preset", "my_village");
+
+        console.log("Uploading file:", file.name);
+
+        const response = await fetch(
+            "https://api.cloudinary.com/v1_1/duokznlha/image/upload",
+            {
+                method: "POST",
+                body: data,
+            }
+        );
+
+        const imageData = await response.json();
+
+        console.log("Cloudinary response:", imageData);
+
+        if (!response.ok) {
+            throw new Error(
+                imageData.error?.message || "Cloudinary upload failed"
+            );
+            setErrorMessage({ ...errorMessage, imageError: "Image upload failed" });
+        }
+
+        if (!imageData.secure_url) {
+            throw new Error("Cloudinary did not return secure_url");
+        }
+
+        console.log("IMAGE URL:", imageData.secure_url);
+
+        setFormData((prev) => ({
+            ...prev,
+            imageUrl: imageData.secure_url,
+        }));
+
+    } catch (error) {
+        console.error("IMAGE UPLOAD ERROR:", error);
+    } finally {
+        setIsUploading(false);
+    }
+};
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if(formData.title === ''){
+            setErrorMessage({ ...errorMessage, titleError: true });
+        } else if(formData.content === ''){
+            setErrorMessage({ ...errorMessage, contentError: true });
+        } else if(formData.imageUrl === ''){
+            setErrorMessage({ ...errorMessage, imageError: true });
+        } else {
+            setIsUploading(true);
+            const jwtToken = Cookies.get('jwt_token');
+            const apiUrl = `${import.meta.env.VITE_API_URL}/discussions`;
+            const userId = localStorage.getItem('userId');
+            const options = {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: formData.title,
+                    content: formData.content,
+                    category: activeCategory,
+                    userId: userId,
+                    imageUrl: formData.imageUrl,
+                }),
+            };
+            try {
+                const response = await fetch(apiUrl, options);
+                if (response.ok) {
+                    const data = await response.json();
+                    setDiscussions(prevDiscussions => [data, ...prevDiscussions]);
+                    setFilteredDiscussions(prevDiscussions => [data, ...prevDiscussions]);
+                    setIsPopupOpen(false);
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error('Error adding discussion:', error);
+            }
+            setIsUploading(false);
+        }
+    }
+
     return (
         <div className="discussions-container">
             <h1 className="discussions-title">Discussions</h1>
@@ -196,17 +199,14 @@ const Discussions = () => {
                 <input type="search" placeholder="Search discussions..." className="search-input" value={searchInputValue} onChange={onSearchChange} />
             </div>
             <div className="discussion-filter-container">
-                <button className={`discussion-filter-button ${activeTab === 'all' ? 'active-filter' : ''}`} onClick={onFilterAll}>
+                <button className={`issues-filter-btn ${activeTab === 'ALL' ? 'active' : ''}`} onClick={onFilterAll}>
                     All
                 </button>
-                <button className={`discussion-filter-button ${activeTab === 'general' ? 'active-filter' : ''}`} onClick={onFilterGeneral}>
+                <button className={`issues-filter-btn ${activeTab === 'GENERAL' ? 'active' : ''}`} onClick={onFilterGeneral}>
                     General
                 </button>
-                <button className={`discussion-filter-button ${activeTab === 'events' ? 'active-filter' : ''}`} onClick={onFilterEvents}>
+                <button className={`issues-filter-btn ${activeTab === 'EVENTS' ? 'active' : ''}`} onClick={onFilterEvents}>
                     Events
-                </button>
-                <button className={`discussion-filter-button ${activeTab === 'issues' ? 'active-filter' : ''}`} onClick={onFilterIssues}>
-                    Issues
                 </button>
             </div>
             {isLoading ? (
@@ -217,7 +217,7 @@ const Discussions = () => {
                 <ul className="discussion-list"> 
                     {
                         filteredDiscussions.map(discussion => (
-                            <DiscussionsItem key={discussion.id} title={discussion.title} content={discussion.content} name={discussion.name} likesCount={discussion.likesCount} contentImage={discussion.imageUrl} createdAt={discussion.createdAt} role={discussion.role} />
+                            <DiscussionsItem key={discussion.discussion_id} title={discussion.title} content={discussion.content} name={discussion.name} likesCount={discussion.likesCount} contentImage={discussion.image_url} createdAt={discussion.created_at} role={discussion.role} />
                         ))
                     }
                 </ul>
@@ -257,22 +257,29 @@ const Discussions = () => {
                                     <button type="button" value="Events" className={activeCategory === 'EVENTS' ? 'add-discussion-category-button active-category' : 'add-discussion-category-button'} onClick={() => setActiveCategory('EVENTS')}>
                                         Events
                                     </button>
-                                    <button type="button" value="Issues" className={activeCategory === 'ISSUES' ? 'add-discussion-category-button active-category' : 'add-discussion-category-button'} onClick={() => setActiveCategory('ISSUES')}>
-                                        Issues
-                                    </button>
                                 </div>
                                 <div className="upload-img-container">
-                                    <label className="add-discussion-label">Upload Image</label>
-                                    <p className="add-discussion-file-input">Currently We are working on this feature.</p>
+                                    <label className="add-discussion-label">Upload Image (optional)</label>
+                                    <input type="file" accept="image/*" className="add-discussion-file-input" onChange={handleFiles} />
+                                    {errorMessage.imageError !== '' && <span className="required">{errorMessage.imageError}</span>}
                                 </div>
                                 <label className="add-discussion-label tips-label">Tips</label>
                                 <div className="add-discussion-tips-container">
                                     <IoShieldCheckmarkOutline size={16} color="#08c12a" />
                                     <p className="add-discussion-file-input-rules">Be respectful and follow the community guidelines.</p>
                                 </div>
-                                <button type="submit" className="add-discussion-submit-button">
+                                {
+                                    isUploading ? (
+                                        <div className="loading-container">
+                                            <BeatLoader color="#1bd233" size={15} />
+                                            </div>)
+                                    : (
+                                        <button type="submit" className="add-discussion-submit-button">
                                     Add Discussion
                                 </button>
+                                    )
+                                }
+                                
                             </form>
                         </div>
                         

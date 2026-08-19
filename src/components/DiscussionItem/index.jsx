@@ -12,6 +12,7 @@ const DiscussionItem = (props) => {
             <div className="discussion-item-content">
                 <h3 className="discussion-item-title">{title}</h3>
                 <p className="discussion-item-description">{content}</p>
+                {contentImage && <img src={contentImage} alt="Discussion" className="discussion-item-image" />}
                 <div className="discussion-item-meta">
                     <p className="discussion-item-name">{name}</p>
                     <span className="discussion-item-date">{createdAtDate.toLocaleDateString()}</span>

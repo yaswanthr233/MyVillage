@@ -275,3 +275,11 @@ input{
     height: 40px;
     margin-top: 20px;
 }
+
+.loading-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 10px;
+}

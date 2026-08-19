@@ -1,9 +1,9 @@
 import './index.css'
 import { AiOutlineHome } from "react-icons/ai";
 import { VscCommentDiscussionSparkle } from "react-icons/vsc";
-import { HiOutlineUsers } from "react-icons/hi2";
 import { CiCalendar } from "react-icons/ci";
 import { FiUser } from "react-icons/fi";
+import { BsBank } from "react-icons/bs";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -22,10 +22,10 @@ const Footer = () => {
         navigate('/');
         setActiveTab('home');
     }
-    const onGoToCommunity = () => {
+    const onGoToGramPanchayat = () => {
         if(jwtToken === undefined) return navigate('/login');
-        navigate('/community');
-        setActiveTab('community');
+        navigate('/grampanchayat');
+        setActiveTab('grampanchayat');
     }
     const onGoToIssues = () => {
         if(jwtToken === undefined) return navigate('/login');
@@ -42,9 +42,9 @@ const Footer = () => {
                 <VscCommentDiscussionSparkle color={activeTab === 'discussions' ? '#08c12a' : '#000000'}  size={30}/>
                 <span className={activeTab === 'discussions' ? 'active-text' : ''}>Discussions</span>
             </button>
-            <button className="home-btn" onClick={onGoToCommunity} active={activeTab === 'community'}>
-                <HiOutlineUsers color={activeTab === 'community' ? '#08c12a' : '#000000'}  size={30}/>
-                <span className={activeTab === 'community' ? 'active-text' : ''}>Community</span>
+            <button className="home-btn" onClick={onGoToGramPanchayat} active={activeTab === 'grampanchayat'}>
+                <BsBank color={activeTab === 'grampanchayat' ? '#08c12a' : '#000000'}  size={30}/>
+                <span className={activeTab === 'grampanchayat' ? 'active-text' : ''}>Gram Panchayat</span>
             </button>
             <button className="home-btn" onClick={onGoToIssues} active={activeTab === 'issues'}>
                 <CiCalendar color={activeTab === 'issues' ? '#08c12a' : '#000000'}  size={30}/>
