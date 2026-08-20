@@ -16,10 +16,9 @@ import IssuesContext from '../../contexts/IssuesContext/index.jsx';
 
 const Issues =  () => {
     const navigate = useNavigate();
-    const profilePictureUrl = localStorage.getItem('profile_picture_url');
     const jwtToken = Cookies.get('jwt_token');
     const userId = localStorage.getItem('userId');
-    const { issues, isLoading, error , fetchIssues} = useContext(IssuesContext);
+    const { issues, isLoading , fetchIssues} = useContext(IssuesContext);
     const [activeCategory, setActiveCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredIssues, setFilteredIssues] = useState([]);
@@ -185,7 +184,7 @@ const Issues =  () => {
             </div>
             <ul className="issues-list-container">
                 {filteredIssues.map(issue => (
-                    <IssueItem key={issue.id} title={issue.title} description={issue.description} location={issue.location} userName={issue.name} createdAt={issue.created_at} status={issue.status} image={issue.image_url} profilePictureUrl={profilePictureUrl} />
+                    <IssueItem key={issue.id} title={issue.title} description={issue.description} location={issue.location} userName={issue.name} createdAt={issue.created_at} status={issue.status} image={issue.image_url} profilePictureUrl={issue.profile_picture_url} />
                 ))}
             </ul>
             {
@@ -243,7 +242,13 @@ const Issues =  () => {
                                             </div>
                                             
                                         ) : (
-                                             <button type="submit" className="report-issue-form-submit-btn">Submit Issue</button>
+                                             <button type="submit" className="report-issue-form-submit-btn">{
+                                              isLoading ? (
+                                                    <BeatLoader color="#1bd233" size={15} />
+                                                ) : (
+                                                    <span>Submit Issue</span>
+                                                )
+                                             }</button>
                                         )
                                     }
                                 </form>
