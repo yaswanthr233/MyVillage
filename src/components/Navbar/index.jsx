@@ -3,6 +3,7 @@ import { IoMenuOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
+    const profilePictureUrl = localStorage.getItem('profile_picture_url');
     return (
         <div className="navbar-container">
             <button className="menu-button"><IoMenuOutline size={30} /></button>
@@ -12,7 +13,11 @@ const Navbar = () => {
                 <p className="logo-subtitle">One Village, One Community</p>
             </div>
             <div className="profile-container">
-                <CgProfile  size={25} />
+                {profilePictureUrl ? (
+                    <img src={profilePictureUrl} alt="Profile" className="profile-picture" />
+                ) : (
+                    <CgProfile size={25} />
+                )}
             </div>
         </div>
     )

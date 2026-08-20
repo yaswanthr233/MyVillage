@@ -49,3 +49,9 @@
     margin-top: 20px;
     margin-right: 20px;
 }
+
+.profile-picture{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
