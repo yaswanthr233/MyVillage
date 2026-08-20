@@ -63,7 +63,7 @@ const Register = () => {
                 navigate('/login')
             } else {
                 const errorData = await response.text();
-                if(errorData.includes('Email already exists')){
+                if(errorData.includes('User already exists')){
                     setIsEmailExists(true);
                     console.error('Error:', errorData);
                 }
