@@ -50,10 +50,12 @@ const Login = () => {
             console.log(response)
             if(response.ok){
                 const data = await response.json();
-                const {token, name, userId,role} = data;
+                const {token, name, userId,role, phone, email} = data;
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userId', userId);
                 localStorage.setItem('role', role);
+                localStorage.setItem('phone', phone);
+                localStorage.setItem('email', email);
                 Cookies.set('jwt_token', data.token, { expires: 30 });
                 console.log(data);
                 navigate('/')

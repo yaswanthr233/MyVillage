@@ -1,7 +1,9 @@
 .discussions-container{
     height: 100%;
     background-color: #fdfdfd;
-    padding: 20px;
+    padding-top: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
     overflow-y: auto;
 }
 
@@ -62,13 +64,14 @@
     color: #ffffff;
 }
 
-.discussion-list{
+.discussion-list {
     list-style-type: none;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    gap: 14px;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 }
 
 .loading-container{

@@ -128,3 +128,9 @@
 .view-details-text{
     margin-right: 5px;
 }
+
+.issue-user-profile-picture{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}

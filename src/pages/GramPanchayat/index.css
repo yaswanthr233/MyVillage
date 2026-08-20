@@ -1,7 +1,492 @@
 .grampanchayat-container{
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 15px;
+}
+
+.grampanchayat-header-container{
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    height: 80px;
+    border: 1px solid #e5e5e5;
+    display: flex;
+}
+
+.grampanchayat-header-image-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 80px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    overflow: hidden;
+}
+.grampanchayat-header-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.grampanchayat-header-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.grampanchayat-header-title{
+    font-size: 20px;
+    font-weight: 600;
+    color: #007a16;
+}
+
+.grampanchayat-header-location{
+    font-size: 10px;
+    color: #666666;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: -10px;
+}
+
+
+.grampanchayat-members-container{
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    height: 180px;
+    border: 1px solid #e5e5e5;
+    margin-top: 15px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.grampanchayat-members-title{
+    font-size: 16px;
+    font-weight: 600;
+    color: #007a16;
+    margin-top: -10px;
+}
+
+.grampanchayat-members-list{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.grampanchayat-members-item{
+    display: flex;
+    align-items: center;
+    margin-top: -20px;
+}
+
+.grampanchayat-member-details{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.grampanchayat-member-name{
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+}
+
+.grampanchayat-member-position{
+    margin-top: -15px;
+    font-size: 12px;
+    color: #075df1;
+}
+
+.grampanchayat-office-container{
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    height: 100px;
+    border: 1px solid #e5e5e5;
+    margin-top: 15px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.grampanchayat-office-title{
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    margin-top: -10px;
+}
+
+.grampanchayat-office-list{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.grampanchayat-office-item{
+    display: flex;
+    align-items: center;
+    margin-top: -20px;
+    gap: 10px;
+}
+
+.grampanchayat-office-detail{
+    font-size: 12px;
+}
+
+.grampanchayat-admin-container {
+    width: 100%;
+}
+
+.grampanchayat-admin-shortcut-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.grampanchayat-admin-shortcut-item {
+    width: 135px;
+    height: 145px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 2px solid #f0f2f0;
+    border-radius: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s ease;
+}
+
+
+.grampanchayat-admin-shortcut-icon {
+    width: 40px;
+    height: 40px;
+    color: #087f36;
+    margin-bottom: 10px;
+}
+
+.grampanchayat-admin-shortcut-text {
+    margin: 0;
+    color: #171717;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: center;
+}
+
+.grampanchayat-admin-shortcut-item:hover {
+    transform: translateY(-3px);
+    border-color: #087f36;
+    box-shadow: 0 6px 18px rgba(0, 128, 55, 0.12);
+}
+
+.grampanchayat-admin-shortcut-item:hover
+.grampanchayat-admin-shortcut-icon {
+    color: #056b2d;
+}
+
+
+.grampanchayat-issues-summary {
+    width: 100%;
+    margin-top: 25px;
+}
+
+.grampanchayat-issues-title {
+    margin: 0 0 15px 0;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #171717;
+}
+
+.grampanchayat-issues-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+.grampanchayat-issue-card {
+    height: 120px;
+
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #eeeeee;
+}
+
+.grampanchayat-issue-card .grampanchayat-issue-card-number {
+    margin: 0 0 5px 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.grampanchayat-issue-card .grampanchayat-issue-card-label {
+    margin: 0;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.grampanchayat-issue-card.open {
+    background-color: #f1f7ff;
+}
+
+.grampanchayat-issue-card.open h3,
+.grampanchayat-issue-card.open p {
+    color: #1264d8;
+}
+
+.grampanchayat-issue-card.progress {
+    background-color: #fff9f0;
+}
+
+.grampanchayat-issue-card.progress h3,
+.grampanchayat-issue-card.progress p {
+    color: #ed8500;
+}
+
+
+.grampanchayat-issue-card.resolved {
+    background-color: #f2faf5;
+}
+
+.grampanchayat-issue-card.resolved h3,
+.grampanchayat-issue-card.resolved p {
+    color: #16833b;
+}
+
+.grampanchayat-manage-issues-popup{
+    width: 100%;
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+
+}
+
+.popup-header-hr{
+    width: 30%;
+    height: 3px;
+    background-color: #c4c4c4;
+    border: none;
+    margin-top: 10px;
+}
+
+
+.grampanchayat-manage-issues-popup-header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+
+.grampanchayat-manage-issues-popup-header{
+    font-size: 20px;
+    font-weight: 700;
+    color: #171717;
+
+}
+
+.grampanchayat-manage-issues-popup-subheader{
+    font-size: 12px;
+    color: #171717;
+    margin-top: -10px;
+}
+
+.popup-close-button{
+    background-color: #e7e7e7;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+}
+
+.grampanchayat-manage-issues-popup-content-container{
+    width: 90%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    gap: 10px;
+}
+
+.search-bar-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 5px;
+}
+.search-bar-input{
+    width: 80%;
+    height: 35px;
+    border:none;
+    padding-left: 10px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.grampanchayat-manage-issues-list{
+    min-height: 200px;
+    display: flex;
+    flex-direction : column;
+    gap: 10px;
+    padding: 10px;
+    overflow-y: scroll;
+    width: 90%;
+}
+
+.grampanchayat-manage-issues-item{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    width: 93%;
+    min-height: 120px;
+}
+
+.grampanchayat-manage-issues-item-details{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+}
+.grampanchayat-manage-issues-item-img{
+
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.grampanchayat-manage-issues-item-text-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.grampanchayat-manage-issues-item-title{
+    font-size: 14px;
+    font-weight: 600;
+    color: #171717;
+}
+
+.grampanchayat-manage-issues-item-location{
+    font-size: 12px;
+    color: #171717;
+    margin-top: -15px;
+}
+
+.grampanchayat-manage-issues-item-date{
+    font-size: 12px;
+    color: #171717;
+    margin-top: -15px;
+}
+
+.issues-popup-btns-container{
+    display: flex;
+    gap: 6px;
+    margin-top: -10px;
+}
+
+.issues-popup-btn{
+    padding: 5px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 10px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    border: 1px solid #e0e0e0;
+    gap: 5px;
+}
+
+.view-btn{
+    background-color: transparent;
+    
+    color: #171717;
+
+}
+
+.in-progress-btn{
+    background-color: #c0d9ffd3;
+    color: #0033ff;
+}
+
+.resolved-btn{
+    background-color: #4ee64e69;
+    color: #107C10;
+}
+
+.grampanchayat-manage-issues-item-status {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 5px;
+    text-align: center;
+    width: fit-content;
+    align-self: flex-start;
+}
+.grampanchayat-manage-issues-item-status.open {
+    background-color: #f1f7ff;
+    color: #1264d8;
+}
+
+.grampanchayat-manage-issues-item-status.in_progress {
+    background-color: #fff9f0;
+    color: #ed8500;
+}
+
+.grampanchayat-manage-issues-item-status.resolved {
+    background-color: #f2faf5;
+    color: #16833b;
+}
+
+.grampanchayat-mark-status-popup{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grampanchayat-mark-status-text{
+    font-size: 14px;
+    color: #000000;
 }

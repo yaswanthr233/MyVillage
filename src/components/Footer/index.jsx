@@ -7,9 +7,17 @@ import { BsBank } from "react-icons/bs";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 const Footer = () => {
+    const location = useLocation()
+    const isHomePage = location.pathname === '/';
+    const isDiscussionsPage = location.pathname === '/discussions';
+    const isGramPanchayatPage = location.pathname === '/grampanchayat';
+    const isIssuesPage = location.pathname === '/issues';
+    const isProfilePage = location.pathname === '/myprofile';
     const jwtToken = Cookies.get('jwt_token');
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('home');
@@ -32,6 +40,26 @@ const Footer = () => {
         navigate('/issues');
         setActiveTab('issues');
     }
+    const onGoToProfile = () => {
+        if(jwtToken === undefined) return navigate('/login');
+        navigate('/myprofile');
+        setActiveTab('profile');
+    }
+
+    useEffect(() => {
+        if (isHomePage) {
+            setActiveTab('home');
+        } else if (isDiscussionsPage) {
+            setActiveTab('discussions');
+        } else if (isGramPanchayatPage) {
+            setActiveTab('grampanchayat');
+        } else if (isIssuesPage) {
+            setActiveTab('issues');
+        } else if (isProfilePage) {
+            setActiveTab('profile');
+        }
+    }, [location]);
+
     return (
         <footer className="footer-container">
             <button className="home-btn" onClick={onClickHome}>
@@ -50,7 +78,7 @@ const Footer = () => {
                 <CiCalendar color={activeTab === 'issues' ? '#08c12a' : '#000000'}  size={30}/>
                 <span className={activeTab === 'issues' ? 'active-text' : ''}>Issues</span>
             </button>
-            <button className="home-btn" onClick={() => setActiveTab('profile')} active={activeTab === 'profile'}>
+            <button className="home-btn" onClick={onGoToProfile} active={activeTab === 'profile'}>
                 <FiUser color={activeTab === 'profile' ? '#08c12a' : '#000000'}  size={30}/>
                 <span className={activeTab === 'profile' ? 'active-text' : ''}>Profile</span>
             </button>

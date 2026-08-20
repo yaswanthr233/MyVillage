@@ -10,13 +10,14 @@ import 'reactjs-popup/dist/index.css';
 import { IoClose } from "react-icons/io5";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-
+import DiscussionsContext from '../../contexts/DiscussionsContext';
+import { useContext } from 'react';
 
 
 const Discussions = () => {
     const navigate = useNavigate();
-    const [discussions, setDiscussions] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const jwtToken = Cookies.get('jwt_token');
+    const { discussions, isLoading, error, fetchDiscussions } = useContext(DiscussionsContext);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [activeCategory, setActiveCategory] = useState('GENERAL');
     const [activeTab, setActiveTab] = useState('ALL');
@@ -27,35 +28,8 @@ const Discussions = () => {
     const [formData, setFormData] = useState({ title: '', content: '' , imageUrl: null});
 
     useEffect(() => {
-        const fetchDiscussions = async () => {
-            const jwtToken = Cookies.get('jwt_token');
-            if(!jwtToken){
-                navigate('/login');
-            } else {
-                const apiUrl = `${import.meta.env.VITE_API_URL}/discussions`;
-                const options = {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${jwtToken}`,
-                    },
-                };
-                try {
-                    const response = await fetch(apiUrl, options);
-                    if (response.ok) {
-                        const data = await response.json();
-                        setDiscussions(data);
-                        setFilteredDiscussions(data);
-                        console.log('Fetched discussions:', data);
-                    }
-                } catch (error) {
-                    console.error('Error fetching discussions:', error);
-                } finally {
-                    setIsLoading(false);
-                }
-            }
-        }
-        fetchDiscussions();
-    },[])
+        setFilteredDiscussions(discussions);
+    }, [discussions]);
 
     const onSearchChange = (event) => {
         setSearchInputValue(event.target.value);
@@ -178,7 +152,6 @@ const Discussions = () => {
                 const response = await fetch(apiUrl, options);
                 if (response.ok) {
                     const data = await response.json();
-                    setDiscussions(prevDiscussions => [data, ...prevDiscussions]);
                     setFilteredDiscussions(prevDiscussions => [data, ...prevDiscussions]);
                     setIsPopupOpen(false);
                     window.location.reload();
@@ -213,11 +186,14 @@ const Discussions = () => {
                 <div className="loading-container">
                     <BeatLoader color="#1bd233" size={15} />
                 </div>
-            ) : (
+            ) : error ? (  
+            <p>{error}</p>
+            )
+            :(
                 <ul className="discussion-list"> 
                     {
                         filteredDiscussions.map(discussion => (
-                            <DiscussionsItem key={discussion.discussion_id} title={discussion.title} content={discussion.content} name={discussion.name} likesCount={discussion.likesCount} contentImage={discussion.image_url} createdAt={discussion.created_at} role={discussion.role} />
+                            <DiscussionsItem key={discussion.discussion_id} title={discussion.title} content={discussion.content} name={discussion.name} likesCount={discussion.likes_count} contentImage={discussion.image_url} createdAt={discussion.created_at} role={discussion.role} profilePictureUrl={discussion.profile_picture_url} />
                         ))
                     }
                 </ul>

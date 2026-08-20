@@ -1,0 +1,178 @@
+.my-profile-container{
+    height: 80vh;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: -70px;
+    overflow-y: none;
+}
+
+.my-profile-header-container{
+    display: flex;
+    align-items: center;
+}
+
+.my-profile-header{
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+}
+
+.my-profile-header-back-button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.my-profile-info-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.my-profile-content-container{
+    background-color: #fdfdfd;
+    min-height: 130px;
+    width: 85%;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #e0e0e0;
+}
+
+.my-profile-details-container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: -10px;
+}
+
+.my-profile-detail-name{
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.my-profile-detail-role{
+    font-size: 12px;
+    color: #107C10;
+    background-color: #4ee64e69;
+    margin-top: -10px;
+    max-width: 70px;
+    padding: 2px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.my-profile-detail-role-admin{
+    font-size: 12px;
+    color: #10487c;
+    background-color: #4ea7e669;
+    margin-top: -10px;
+    max-width: 70px;
+    padding: 2px;
+    border-radius: 5px;
+    text-align: center;
+}
+.my-profile-detail-phone-container,.my-profile-detail-email-container{
+    display: flex;
+    align-items: center;
+    margin-top: -15px;
+
+}
+
+.my-profile-detail-phone, .my-profile-detail-email{
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.my-profile-edit-button{
+    background-color: #08c12a;
+    border:none;
+    color: #ffffff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin-top: -7px;
+    align-items: center;
+    padding: 5px 10px;
+    margin-left: -5px;
+    border-radius: 10px;
+    width: 100px;
+}
+
+.my-profile-edit-button-text{
+    margin-left: 5px;
+}
+
+
+.loading-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.my-profile-change-picture-button{
+    background-color: #08c12a;
+    border:none;
+    color: #ffffff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    align-items: center;
+    padding: 5px 10px;
+    margin-left: -5px;
+    border-radius: 10px;
+}
+
+.my-profile-popup-update-profile-container{
+    height: 100%;
+    width: 100%;
+}
+
+.my-profile-popup-update-profile-close-button{
+    background-color: #e4e3e3;
+    border:none;
+    color: #ffffff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    align-items: center;
+    padding: 5px 10px;
+    margin-left: -5px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.my-profile-popup-update-profile-input{
+    margin-top: 20px;
+    width: 100%;
+}
+
+.my-profile-popup-update-profile-button{
+    background-color: #08c12a;
+    border:none;
+    color: #ffffff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    align-items: center;
+    padding: 5px 10px;
+    margin-left: -5px;
+    border-radius: 10px;
+}
+
+.my-profile-image{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}

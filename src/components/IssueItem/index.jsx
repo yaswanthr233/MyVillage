@@ -5,13 +5,17 @@ import { FaArrowRight } from "react-icons/fa6";
 
 
 const IssueItem = (props) => {
-    const {title, description, location, userName, createdAt,status,image} = props;
+    const {title, description, location, userName, createdAt,status,image,profilePictureUrl} = props;
     const statusText = status === 'OPEN' ? 'Open' : status === 'IN_PROGRESS' ? 'In Progress' : status === 'RESOLVED' ? 'Resolved' : 'Closed';
     const createdAtDate = new Date(createdAt);
     return (
         <li className="issue-item-container">
             <div className="issue-profile-container">
-                <CgProfile size={30} />
+                {profilePictureUrl ? (
+                    <img src={profilePictureUrl} alt="Profile" className="issue-user-profile-picture" />
+                ) : (
+                    <CgProfile size={30} />
+                )}
             </div>
             <div className="issue-details-container">
                 <div className="issue-header-container">

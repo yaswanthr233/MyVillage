@@ -11,15 +11,15 @@ import { IoClose } from "react-icons/io5";
 import { MdMyLocation } from "react-icons/md";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom'
-
+import React, { useContext } from 'react';
+import IssuesContext from '../../contexts/IssuesContext/index.jsx';
 
 const Issues =  () => {
     const navigate = useNavigate();
+    const profilePictureUrl = localStorage.getItem('profile_picture_url');
     const jwtToken = Cookies.get('jwt_token');
     const userId = localStorage.getItem('userId');
-    const [issues, setIssues] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { issues, isLoading, error , fetchIssues} = useContext(IssuesContext);
     const [activeCategory, setActiveCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredIssues, setFilteredIssues] = useState([]);
@@ -33,35 +33,10 @@ const Issues =  () => {
         image: '',
         userId: localStorage.getItem('userId'),
     });
-
-    
     useEffect(() => {
-        const fetchIssues = async () => {
-            try{
-                const token = Cookies.get('jwt_token');
-                const options = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization' : `Bearer ${token}`
-                    }
-                }
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/issues`, options)
-                if(response.ok){
-                    const data = await response.json();
-                    setIssues(data);
-                    setFilteredIssues(data);
-                    setIsLoading(false);
-                    console.log(data);
-                } else {
-                    console.error('Failed to fetch issues');
-                }
-            } catch (error) {
-                console.error('Error fetching issues:', error.message);
-            }
-        }
-        fetchIssues();
-    },[])
+        setFilteredIssues(issues);
+    },[issues])
+    
 
     const onFilterAll = () => {
         setFilteredIssues(issues);
@@ -176,19 +151,8 @@ const Issues =  () => {
                 console.log('Issue reported successfully:', data.issue);
                 setIsPopupOpen(false);
                 navigate('/issues');
+                fetchIssues(); 
 
-            }
-            const fetchIssuesResponse = await fetch(`${import.meta.env.VITE_API_URL}/issues`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization' : `Bearer ${token}`
-                }
-            });
-            if(fetchIssuesResponse.ok){
-                const data = await fetchIssuesResponse.json();
-                setIssues(data);
-                setFilteredIssues(data);
             }
         } catch (error) {
             console.error('Error reporting issue:', error.message);
@@ -221,7 +185,7 @@ const Issues =  () => {
             </div>
             <ul className="issues-list-container">
                 {filteredIssues.map(issue => (
-                    <IssueItem key={issue.id} title={issue.title} description={issue.description} location={issue.location} userName={issue.name} createdAt={issue.created_at} status={issue.status} image={issue.image_url} />
+                    <IssueItem key={issue.id} title={issue.title} description={issue.description} location={issue.location} userName={issue.name} createdAt={issue.created_at} status={issue.status} image={issue.image_url} profilePictureUrl={profilePictureUrl} />
                 ))}
             </ul>
             {
