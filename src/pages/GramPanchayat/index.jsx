@@ -43,7 +43,7 @@ const GramPanchayat = () => {
                     <li className="grampanchayat-members-item">
                         <CgProfile color="#087F08" size={30} />
                         <div className="grampanchayat-member-details">
-                            <h3 className="grampanchayat-member-name">Member 2</h3>
+                            <h3 className="grampanchayat-member-name">Annapureddy Srinivas Reddy</h3>
                             <p className="grampanchayat-member-position">Vice President</p>
                         </div>
                     </li>

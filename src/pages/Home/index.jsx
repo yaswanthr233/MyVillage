@@ -11,7 +11,6 @@ import { useEffect,useState } from 'react';
 import WeatherInfo from '../../components/WeatherInfo/index.jsx';
 import { useContext } from 'react';
 import DiscussionsContext from '../../contexts/DiscussionsContext';
-import DiscussionItem from '../../components/DiscussionItem/index.jsx';
 import { CgProfile } from 'react-icons/cg';
 
 const shortcuts = [
@@ -37,7 +36,6 @@ const shortcuts = [
 const Home = () => {
     const navigate = useNavigate()
     const {discussions, fetchDiscussions} = useContext(DiscussionsContext)
-    const profilePictureUrl = localStorage.getItem('profile_picture_url');
     useEffect(() => {
         fetchDiscussions()
         console.log('discussions', discussions)
@@ -68,8 +66,8 @@ const Home = () => {
                             {
                                 discussions.slice(0, 1).map((discussion) => (
                                     <li key={discussion.discussion_id} className="discussion-item">
-                                        {profilePictureUrl ? (
-                                            <img src={profilePictureUrl} alt="Profile" className="discussion-user-profile-picture" />
+                                        {discussion.profile_picture_url ? (
+                                            <img src={discussion.profile_picture_url} alt="Profile" className="discussion-user-profile-picture" />
                                         ) : (
                                             <CgProfile size={30} />
                                         )}
