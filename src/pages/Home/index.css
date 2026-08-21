@@ -110,3 +110,48 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+.language-switcher{
+    background-color: #08c12a;
+    padding: 5px;
+    border-radius: 15px;
+    height: 30px;
+    width: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.language-btn{
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 15px;
+    transition: background-color 0.3s, color 0.3s;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.language-btn.active{
+    background-color: #ffffff;
+    color: #08c12a;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+
+.loading-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

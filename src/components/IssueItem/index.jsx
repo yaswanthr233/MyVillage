@@ -2,10 +2,12 @@ import './index.css'
 import { IoLocationOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { FaArrowRight } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 
 const IssueItem = (props) => {
-    const {title, description, location, userName, createdAt,status,image,profilePictureUrl} = props;
+    const navigate = useNavigate();
+    const {title, description, location, userName, createdAt,status,image,profilePictureUrl,id} = props;
     const statusText = status === 'OPEN' ? 'Open' : status === 'IN_PROGRESS' ? 'In Progress' : status === 'RESOLVED' ? 'Resolved' : 'Closed';
     const createdAtDate = new Date(createdAt);
     return (
@@ -34,7 +36,7 @@ const IssueItem = (props) => {
                     <p className={`issue-status ${status.toLowerCase()}`}>{statusText}</p>
                 </div>
                 <div className="view-details-btn-container">
-                    <button className="view-details-btn"><span className="view-details-text">View Details</span> <FaArrowRight  /></button>
+                    <button className="view-details-btn" onClick={() => navigate(`/issue/${id}`)}><span className="view-details-text">View Details</span> <FaArrowRight  /></button>
                 </div>
             </div>
             

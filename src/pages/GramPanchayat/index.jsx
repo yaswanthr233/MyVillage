@@ -17,9 +17,10 @@ import { FaEye } from "react-icons/fa";
 import { FcProcess } from "react-icons/fc";
 import { FcCheckmark } from "react-icons/fc";
 import Cookies from 'js-cookie';
-
+import { useTranslation } from 'react-i18next';
 
 const GramPanchayat = () => {
+    const { t } = useTranslation();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const jwtToken = Cookies.get('jwt_token');
     const role = localStorage.getItem('role');
@@ -31,33 +32,33 @@ const GramPanchayat = () => {
         return(
             <>
             <div className="grampanchayat-members-container">
-                <h2 className="grampanchayat-members-title">Panchayat Members</h2>
+                <h2 className="grampanchayat-members-title">{t('panchayatMembers')}</h2>
                 <ul className="grampanchayat-members-list">
                     <li className="grampanchayat-members-item">
                         <CgProfile color="#087F08" size={30} />
                         <div className="grampanchayat-member-details">
                             <h3 className="grampanchayat-member-name">Chinnakesu Venkaya</h3>
-                            <p className="grampanchayat-member-position">Sarpanch / President</p>
+                            <p className="grampanchayat-member-position">{t('sarpanchPresident')}</p>
                         </div>
                     </li>
                     <li className="grampanchayat-members-item">
                         <CgProfile color="#087F08" size={30} />
                         <div className="grampanchayat-member-details">
-                            <h3 className="grampanchayat-member-name">Annapureddy Srinivas Reddy</h3>
-                            <p className="grampanchayat-member-position">Vice President</p>
+                            <h3 className="grampanchayat-member-name">Gopireddy Srinivas Reddy</h3>
+                            <p className="grampanchayat-member-position">{t('vicePresident')}</p>
                         </div>
                     </li>
                     <li className="grampanchayat-members-item">
                         <CgProfile color="#087F08" size={30} />
                         <div className="grampanchayat-member-details">
                             <h3 className="grampanchayat-member-name">P. Saidulu</h3>
-                            <p className="grampanchayat-member-position">Panchayat Secretary</p>
+                            <p className="grampanchayat-member-position">{t('panchayatSecretary')}</p>
                         </div>
                     </li>
                 </ul>
             </div>
             <div className="grampanchayat-office-container">
-                <h2 className="grampanchayat-office-title">Panchayat Office</h2>
+                <h2 className="grampanchayat-office-title">{t('panchayatOffice')}</h2>
                 <ul className="grampanchayat-office-list">
                     <li className="grampanchayat-office-item">
                         <MdAccessTime size={20} color="#000" />
@@ -65,7 +66,7 @@ const GramPanchayat = () => {
                     </li>
                     <li className="grampanchayat-office-item">
                         <CiLocationOn size={20} color="#000" />
-                        <p className="grampanchayat-office-detail">Dondapadu, Telangana</p>
+                        <p className="grampanchayat-office-detail">{t('dondapadu')}, Telangana</p>
                     </li>
                 </ul>
             </div>

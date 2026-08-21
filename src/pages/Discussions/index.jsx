@@ -12,9 +12,11 @@ import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import DiscussionsContext from '../../contexts/DiscussionsContext';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 
 const Discussions = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const jwtToken = Cookies.get('jwt_token');
     const { discussions, isLoading, error, fetchDiscussions } = useContext(DiscussionsContext);
@@ -169,17 +171,17 @@ const Discussions = () => {
             <p className="discussions-subtitle">Share your thoughts and connect with your village.</p>
             <div className="search-container">
                 <IoSearch color="gray" />
-                <input type="search" placeholder="Search discussions..." className="search-input" value={searchInputValue} onChange={onSearchChange} />
+                <input type="search" placeholder={t('searchDiscussions')} className="search-input" value={searchInputValue} onChange={onSearchChange} />
             </div>
             <div className="discussion-filter-container">
                 <button className={`issues-filter-btn ${activeTab === 'ALL' ? 'active' : ''}`} onClick={onFilterAll}>
-                    All
+                    {t('all')}
                 </button>
                 <button className={`issues-filter-btn ${activeTab === 'GENERAL' ? 'active' : ''}`} onClick={onFilterGeneral}>
-                    General
+                    {t('general')}
                 </button>
                 <button className={`issues-filter-btn ${activeTab === 'EVENTS' ? 'active' : ''}`} onClick={onFilterEvents}>
-                    Events
+                    {t('events')}
                 </button>
             </div>
             {isLoading ? (
@@ -212,37 +214,37 @@ const Discussions = () => {
                                 <button className="add-discussion-popup-close-button" onClick={() => setIsPopupOpen(false)}>
                                     <IoClose size={24} />
                                 </button>
-                                <h2 className="add-discussion-popup-title">Add Discussion</h2>
+                                <h2 className="add-discussion-popup-title">{t('addDiscussion')}</h2>
                             </div>
                             <form className="add-discussion-form" onSubmit={handleSubmit}>
-                                <label className="add-discussion-label">Title {errorMessage.titleError && <span className="required">*</span>}</label>
-                                <input type="text" placeholder="Enter Short Title" className="add-discussion-input" maxLength="100" onChange={onTitleChange} />
+                                <label className="add-discussion-label">{t('title')} {errorMessage.titleError && <span className="required">*</span>}</label>
+                                <input type="text" placeholder={t('enterShortTitle')} className="add-discussion-input" maxLength="100" onChange={onTitleChange} />
                                 <div className="discussion-character-count-container">
                                     <span className="discussion-character-count">0/100</span>
                                 </div>
-                                <label className="add-discussion-label">Content {errorMessage.contentError && <span className="required">*</span>}</label>
-                                <textarea placeholder="Share your thoughts..." className="add-discussion-textarea" maxLength="1000" onChange={onContentChange} />
+                                <label className="add-discussion-label">{t('content')} {errorMessage.contentError && <span className="required">*</span>}</label>
+                                <textarea placeholder={t('shareYourThoughts')} className="add-discussion-textarea" maxLength="1000" onChange={onContentChange} />
                                 <div className="discussion-character-count-container">
                                     <span className="discussion-character-count">0/1000</span>
                                 </div>
-                                <label className="add-discussion-label">Category <span className="required">*</span></label>
+                                <label className="add-discussion-label">{t('category')} <span className="required">*</span></label>
                                 <div className="add-discussion-category-container">
                                     <button type="button" value="General" className={activeCategory === 'GENERAL' ? 'add-discussion-category-button active-category' : 'add-discussion-category-button'} onClick={() => setActiveCategory('GENERAL')}>
-                                        General
+                                        {t('general')}
                                     </button>
                                     <button type="button" value="Events" className={activeCategory === 'EVENTS' ? 'add-discussion-category-button active-category' : 'add-discussion-category-button'} onClick={() => setActiveCategory('EVENTS')}>
-                                        Events
+                                        {t('events')}
                                     </button>
                                 </div>
                                 <div className="upload-img-container">
-                                    <label className="add-discussion-label">Upload Image (optional)</label>
+                                    <label className="add-discussion-label">{t('uploadImage')}</label>
                                     <input type="file" accept="image/*" className="add-discussion-file-input" onChange={handleFiles} />
                                     {errorMessage.imageError !== '' && <span className="required">{errorMessage.imageError}</span>}
                                 </div>
-                                <label className="add-discussion-label tips-label">Tips</label>
+                                <label className="add-discussion-label tips-label">{t('tips')}</label>
                                 <div className="add-discussion-tips-container">
                                     <IoShieldCheckmarkOutline size={16} color="#08c12a" />
-                                    <p className="add-discussion-file-input-rules">Be respectful and follow the community guidelines.</p>
+                                    <p className="add-discussion-file-input-rules">{t('beRespectful')}</p>
                                 </div>
                                 {
                                     isUploading ? (
@@ -251,7 +253,7 @@ const Discussions = () => {
                                             </div>)
                                     : (
                                         <button type="submit" className="add-discussion-submit-button">
-                                    Add Discussion
+                                    {t('addDiscussion')}
                                 </button>
                                     )
                                 }

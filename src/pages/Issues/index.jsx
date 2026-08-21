@@ -13,8 +13,9 @@ import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom'
 import React, { useContext } from 'react';
 import IssuesContext from '../../contexts/IssuesContext/index.jsx';
-
+import { useTranslation } from 'react-i18next';
 const Issues =  () => {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const jwtToken = Cookies.get('jwt_token');
     const userId = localStorage.getItem('userId');
@@ -157,34 +158,33 @@ const Issues =  () => {
             console.error('Error reporting issue:', error.message);
         }
     }
-
     const renderIssuesList = () => {
         return (
         <div className="issues-page-container">
             <div className="issues-page-header-container">
                 <div>
                     <h1 className="issues-page-header-text">Issues</h1>
-                    <p className="issues-page-header-description">Report problems and track their status.</p>
+                    <p className="issues-page-header-description">{t('reportProblems')}</p>
                 </div>
                 <div>
                     <button className="report-issue-btn" onClick={() => setIsPopupOpen(true)}>
-                        <FaPlus /> <span>Report Issue</span>
+                        <FaPlus /> <span>{t('reportIssue')}</span>
                     </button>
                 </div>
             </div>
             <div className="search-container">
                 <IoSearch color="gray" />
-                <input type="search" placeholder="Search issues..." className="search-input" value={searchQuery} onChange={onSearchIssues} />
+                <input type="search" placeholder={t('searchIssues')} className="search-input" value={searchQuery} onChange={onSearchIssues} />
             </div>
             <div className="issues-filter-container">
-                <button className={`issues-filter-btn ${activeCategory === 'All' ? 'active' : ''}`} onClick={onFilterAll}>All</button>
-                <button className={`issues-filter-btn ${activeCategory === 'OPEN' ? 'active' : ''}`} onClick={onFilterOpen}>Open</button>
-                <button className={`issues-filter-btn ${activeCategory === 'IN_PROGRESS' ? 'active' : ''}`} onClick={onFilterInProgress}>In Progress</button>
-                <button className={`issues-filter-btn ${activeCategory === 'RESOLVED' ? 'active' : ''}`} onClick={onFilterResolved}>Resolved</button>
+                <button className={`issues-filter-btn ${activeCategory === 'All' ? 'active' : ''}`} onClick={onFilterAll}>{t('All')}</button>
+                <button className={`issues-filter-btn ${activeCategory === 'OPEN' ? 'active' : ''}`} onClick={onFilterOpen}>{t('Open')}</button>
+                <button className={`issues-filter-btn ${activeCategory === 'IN_PROGRESS' ? 'active' : ''}`} onClick={onFilterInProgress}>{t('In Progress')}</button>
+                <button className={`issues-filter-btn ${activeCategory === 'RESOLVED' ? 'active' : ''}`} onClick={onFilterResolved}>{t('Resolved')}</button>
             </div>
             <ul className="issues-list-container">
                 {filteredIssues.map(issue => (
-                    <IssueItem key={issue.id} title={issue.title} description={issue.description} location={issue.location} userName={issue.name} createdAt={issue.created_at} status={issue.status} image={issue.image_url} profilePictureUrl={issue.profile_picture_url} />
+                    <IssueItem key={issue.id} title={issue.title} description={issue.description} location={issue.location} userName={issue.name} createdAt={issue.created_at} status={issue.status} image={issue.image_url} profilePictureUrl={issue.profile_picture_url} id={issue.id} />
                 ))}
             </ul>
             {
@@ -214,22 +214,22 @@ const Issues =  () => {
                             </div>
                             <div className="popup-body-container">
                                 <form className="report-issue-form" onSubmit={onSubmitReportIssue}> 
-                                    <label htmlFor="category" className="report-issue-form-label">Category <span className="required">*</span></label>   
+                                    <label htmlFor="category" className="report-issue-form-label">{t('issueCategory')} <span className="required">*</span></label>   
                                     <select id="category" name="category" className="report-issue-form-select" value={formData.category} required onChange={(e) => setFormData({...formData, category: e.target.value})}>
-                                        <option value="ROAD">Road</option>
-                                        <option value="INFRASTRUCTURE">Infrastructure</option>
-                                        <option value="SANITATION">Drainage</option>
-                                        <option value="WATER">Water</option>
-                                        <option value="ELECTRICITY">Electricity</option>
-                                        <option value="OTHER">Other</option>
+                                        <option value="ROAD">{t('road')}</option>
+                                        <option value="INFRASTRUCTURE">{t('infrastructure')}</option>
+                                        <option value="SANITATION">{t('sanitation')}</option>
+                                        <option value="WATER">{t('water')}</option>
+                                        <option value="ELECTRICITY">{t('electricity')}</option>
+                                        <option value="OTHER">{t('other')}</option>
                                     </select>
-                                    <label htmlFor="title" className="report-issue-form-label">Title <span className="required">*</span></label>
-                                    <input type="text" id="title" name="title" className="report-issue-form-input" placeholder="Enter issue title" required maxLength="100" onChange={(e) => setFormData({...formData, title: e.target.value})}/>
-                                    <label htmlFor="description" className="report-issue-form-label">Description <span className="required">*</span></label>
-                                    <textarea id="description" name="description" className="report-issue-form-textarea" placeholder="Enter issue description" required maxLength="1000" onChange={(e) => setFormData({...formData, description: e.target.value})}></textarea>
-                                    <label htmlFor="location" className="report-issue-form-label">Location <span className="required">*</span></label>
-                                    <input type="text" id="location" name="location" className="report-issue-form-input location" placeholder="Enter issue location" required maxLength="200" onChange={(e) => setFormData({...formData, location: e.target.value})} />
-                                    <label htmlFor="image" className="report-issue-form-label">Image (Atleast one required)</label>
+                                    <label htmlFor="title" className="report-issue-form-label">{t('issueTitle')} <span className="required">*</span></label>
+                                    <input type="text" id="title" name="title" className="report-issue-form-input" placeholder={t('enterIssueTitle')} required maxLength="100" onChange={(e) => setFormData({...formData, title: e.target.value})}/>
+                                    <label htmlFor="description" className="report-issue-form-label">{t('issueDescription')} <span className="required">*</span></label>
+                                    <textarea id="description" name="description" className="report-issue-form-textarea" placeholder={t('enterIssueDescription')} required maxLength="1000" onChange={(e) => setFormData({...formData, description: e.target.value})}></textarea>
+                                    <label htmlFor="location" className="report-issue-form-label">{t('issueLocation')} <span className="required">*</span></label>
+                                    <input type="text" id="location" name="location" className="report-issue-form-input location" placeholder={t('enterIssueLocation')} required maxLength="200" onChange={(e) => setFormData({...formData, location: e.target.value})} />
+                                    <label htmlFor="image" className="report-issue-form-label">{t('imageRequired')}</label>
                                     <input type="file" id="image" name="image" className="report-issue-form-image-upload-input"  accept="image/*" onChange={handleFiles} />
                                     <div className="add-issue-tips-container">
                                         <IoShieldCheckmarkOutline size={16} color="#08c12a" />

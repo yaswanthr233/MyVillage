@@ -9,7 +9,7 @@ import { useState,useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { Navigate } from 'react-router-dom';
 import Popup from 'reactjs-popup'
-import BeatLoader from "react-spinners/BeatLoader";
+import {HashLoader} from "react-spinners";
 
 const Register = () => {
     if(Cookies.get('jwt_token') !== undefined){
@@ -479,7 +479,7 @@ Village: Dondapadu Village
     const renderLoadingPage = () => {
         return (
             <div className="loading-container">
-                <BeatLoader color="#1bd233" size={15} />
+                <HashLoader color="#1bd233" size={15} />
             </div>
         )
     }

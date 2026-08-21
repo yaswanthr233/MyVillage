@@ -12,11 +12,14 @@ import Issues from './pages/Issues/index.jsx'
 import MyProfile from './pages/MyProfile/index.jsx'
 import IssuesProvider from './contexts/IssuesProvider/index.jsx'
 import DiscussionsProvider from './contexts/DiscussionsProvider/index.jsx'
+import { useState } from 'react'
+import IssueDetails from './components/IssueDetails/index.jsx'
 
 function App() {
   const location = useLocation()
   const hideLayout = ['/login', '/register'].includes(location.pathname)
-  const hideNavbar = ['/myprofile'].includes(location.pathname)
+  const hideNavbar = ['/myprofile','/issue/:id'].includes(location.pathname)
+
 
   return (
     <div className="App">
@@ -54,6 +57,13 @@ function App() {
           <ProtectedRoute>
             <IssuesProvider >
             <Issues />
+            </IssuesProvider>
+          </ProtectedRoute>
+        } />
+        <Route path="/issue/:id" element={
+          <ProtectedRoute>
+            <IssuesProvider >
+            <IssueDetails />
             </IssuesProvider>
           </ProtectedRoute>
         } />

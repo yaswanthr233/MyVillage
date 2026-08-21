@@ -5,7 +5,7 @@ import { FaGoogle } from "react-icons/fa";
 import {useNavigate} from 'react-router-dom'
 import { useState } from 'react'
 import Cookies from 'js-cookie'
-import BeatLoader from "react-spinners/BeatLoader";
+import {HashLoader} from "react-spinners";
 import { Navigate } from 'react-router-dom';
 
 const Login = () => {
@@ -129,7 +129,7 @@ const Login = () => {
     const renderLoadingView = () => {
         return (
             <div className="loading-container">
-                <BeatLoader color="#1bd233" size={15} />
+                <HashLoader color="#1bd233" size={15} />
             </div>
         )
     }
