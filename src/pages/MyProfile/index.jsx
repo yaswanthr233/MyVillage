@@ -12,6 +12,7 @@ import React,{useContext} from 'react';
 import { TiWarning } from "react-icons/ti";
 import { FaAngleUp } from "react-icons/fa";
 import Popup from "reactjs-popup";
+import { GoPerson } from "react-icons/go";
 
 const MyProfile = () => {
     const jwtToken = Cookies.get('jwt_token');
@@ -23,10 +24,57 @@ const MyProfile = () => {
     const profilePictureUrl = localStorage.getItem('profile_picture_url');
     const [isUploading, setIsUploading] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [onEditMode, setOnEditMode] = useState(false);
     const [formData, setFormData] = useState({
-        profile_picture_url: profilePictureUrl || ''
+        profile_picture_url: profilePictureUrl || '',
+        name: name || '',
+        phone: phone || '',
+        email: email || '',
+        gender: '',
+        dob: '',
     });
     const isResident = role === 'RESIDENT';
+
+    const onSubmitEditProfile =  async (e) => {
+        e.preventDefault();
+        const updatedProfileData = {
+            name: formData.name,
+            phone: formData.phone,
+            gender: formData.gender,
+            dob: formData.dob,
+        };
+        const options = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`,
+            },
+            body: JSON.stringify(updatedProfileData),
+        };
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, options);
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Profile updated successfully:', data);
+                localStorage.setItem('userName', data.user.name);
+                localStorage.setItem('phone', data.user.phone_number);
+                localStorage.setItem('gender', data.user.gender);
+                localStorage.setItem('dob', data.user.dob);
+                localStorage.setItem('profile_picture_url', data.user.profile_picture_url);
+                setFormData((prev) => ({ ...prev, name: data.user.name, phone: data.user.phone_number, gender: data.user.gender, dob: data.user.dob , profile_picture_url: data.user.profile_picture_url}));
+                setOnEditMode(false);
+
+                alert('Profile updated successfully!');
+
+            } else {
+                console.error('Failed to update profile:', response.status);
+                alert('Failed to update profile.');
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('An error occurred while updating the profile.');
+        }
+    }
 
     const handleProfilePictureChange = async (event) => {
     const file = event.target.files[0];
@@ -162,9 +210,44 @@ const MyProfile = () => {
 
     }
 };
+
+    const renderEditModePopup = () => {
+        return (
+            onEditMode && (
+                <Popup
+                    open={onEditMode}
+                    onClose={() => setOnEditMode(false)}
+                    modal
+                    contentStyle={{ width: '300px', padding: '20px', borderRadius: '15px' , height: '500px'}}
+                >
+                    <div className="my-profile-edit-mode-container">
+                        <button className="my-profile-edit-mode-close-button" onClick={() => setOnEditMode(false)}>X</button>
+                        <form className="my-profile-edit-mode-form" onSubmit={onSubmitEditProfile}>
+                            <label htmlFor="name"><GoPerson color="#029f1f" /> Full Name</label>
+                            <input type="text" required id="name" value={formData.name} onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))} />
+                            <label htmlFor="phone"><FaPhoneAlt color="#029f1f" /> Phone</label>
+                            <input type="text" required id="phone" value={formData.phone} onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))} />
+                            <label htmlFor="gender"><GoPerson color="#029f1f" /> Gender</label>
+                            <select id="gender" value={formData.gender} onChange={(e) => setFormData((prev) => ({ ...prev, gender: e.target.value }))}>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <label htmlFor="dob"><TiWarning color="#029f1f" /> Date of Birth</label>
+                            <input type="date" required id="dob" value={formData.dob} onChange={(e) => setFormData((prev) => ({ ...prev, dob: e.target.value }))} />
+                            <button type="submit" className="my-profile-edit-mode-save-button">Save Changes</button>
+                        </form>
+                    </div>
+                </Popup>
+            )
+        )
+    }
+
     const renderMyProfile = () => {
         return (
         <div className="my-profile-container">
+            {renderEditModePopup()}
             <div className="my-profile-header-container">
                 <button className="my-profile-header-back-button" onClick={() => window.history.back()}>
                     <IoArrowBack size={24}/>
@@ -194,10 +277,10 @@ const MyProfile = () => {
                             <MdEmail size={14} />
                             <p className="my-profile-detail-email">{email}</p>
                         </div>
-                        <button className="my-profile-edit-button"><FiEdit2 size={12} color="#000" /> <span className="my-profile-edit-button-text">Edit Profile</span></button>
+                        <button className="my-profile-edit-button" onClick={() => setOnEditMode(true)}>
+                            <FiEdit2 size={12} color="#000" /> <span className="my-profile-edit-button-text">Edit Profile</span>
+                        </button>
                     </div>
-
-
                 </div>
                 {
                     isPopupOpen && (
@@ -239,5 +322,6 @@ const MyProfile = () => {
     
     return  renderMyProfile();
 }
+
 
 export default MyProfile

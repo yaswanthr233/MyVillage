@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react'
 import { IoSearch } from 'react-icons/io5'
 import Cookies from 'js-cookie'
 import IssueItem from '../../components/IssueItem'
-import { BeatLoader } from 'react-spinners'
+import { BeatLoader, HashLoader } from 'react-spinners'
 import Popup from 'reactjs-popup'
 import { BiError } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
@@ -63,7 +63,7 @@ const Issues =  () => {
     const renderLoadingView = () => {
         return (
             <div className="loading-container">
-                <BeatLoader color="#1bd233" size={15} />
+                <HashLoader color="#1bd233" size={40} />
             </div>
         )
     }
@@ -238,7 +238,7 @@ const Issues =  () => {
                                     {
                                         isUploading? (
                                             <div className="loading-container">
-                                                <BeatLoader color="#1bd233" size={15} />
+                                                <HashLoader color="#1bd233" size={40} />
                                             </div>
                                             
                                         ) : (

@@ -100,7 +100,7 @@
     align-items: center;
     padding: 5px 10px;
     margin-left: -5px;
-    border-radius: 10px;
+    border-radius: 7px;
     width: 100px;
 }
 
@@ -171,8 +171,86 @@
 }
 
 .my-profile-image{
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.my-profile-edit-mode-container{
+    height: 100%;
+    width: 100%;
+}
+
+.my-profile-edit-mode-close-button{
+    background-color: #e4e3e3;
+    border:none;
+    color: #ffffff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    align-items: center;
+    padding: 5px 10px;
+    margin-left: -5px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.my-profile-edit-mode-form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 20px;
+}
+
+label{
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+input{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 80%;
+    margin-bottom: 10px;
+}
+
+select{
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 88%;
+    margin-bottom: 10px;
+    height: 35px;
+}
+
+select option{
+    font-size: 12px;
+    color: #333;
+}
+
+
+.my-profile-edit-mode-save-button{
+    background-color: #08c12a;
+    border:none;
+    color: #ffffff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    align-items: center;
+    padding: 5px 10px;
+    margin-left: -5px;
+    width: 100px;
+    height: 35px;
+
+    border-radius: 10px;
 }

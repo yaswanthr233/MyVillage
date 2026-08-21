@@ -4,7 +4,6 @@ import { IoSearch } from "react-icons/io5";
 import { useState,useEffect } from 'react';
 import Cookies from 'js-cookie'
 import DiscussionsItem from '../../components/DiscussionItem';
-import BeatLoader from "react-spinners/BeatLoader";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { IoClose } from "react-icons/io5";
@@ -13,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import DiscussionsContext from '../../contexts/DiscussionsContext';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { HashLoader, BeatLoader } from 'react-spinners';
 
 
 const Discussions = () => {
@@ -56,7 +56,7 @@ const Discussions = () => {
     const renderLoadingView = () => {
         return (
             <div className="loading-container">
-                <BeatLoader color="#1bd233" size={15} />
+                <HashLoader color="#1bd233" size={15} />
             </div>
         )
     }
@@ -186,7 +186,7 @@ const Discussions = () => {
             </div>
             {isLoading ? (
                 <div className="loading-container">
-                    <BeatLoader color="#1bd233" size={15} />
+                    <HashLoader color="#1bd233" size={15} />
                 </div>
             ) : error ? (  
             <p>{error}</p>
@@ -249,7 +249,7 @@ const Discussions = () => {
                                 {
                                     isUploading ? (
                                         <div className="loading-container">
-                                            <BeatLoader color="#1bd233" size={15} />
+                                            <BeatLoader color="#1bd233" size={40} />
                                             </div>)
                                     : (
                                         <button type="submit" className="add-discussion-submit-button">
