@@ -32,6 +32,7 @@ const te = {
         askOrShare: "అడగండి లేదా పంచుకోండి",
         letUsKnow: "మాకు తెలియజేయండి",
         stayUpdated: "తాజా సమాచారం పొందండి",
+        noDiscussions: "ఇటువంటి చర్చలు లేవు",
 
         recentDiscussions: "ఇటీవలి చర్చలు",
 
@@ -72,6 +73,7 @@ const te = {
         addDiscussionButton: "చర్చను జోడించండి",
 
         // ISSUES
+        noIssues: "ఇటువంటి సమస్యలు లేవు",
         reportProblems:
             "సమస్యలను నివేదించి వాటి స్థితిని తెలుసుకోండి.",
 
@@ -90,7 +92,7 @@ const te = {
         other: "ఇతర",
         infrastructure: "ఇన్‌ఫ్రాస్ట్రక్చర్",
 
-        
+
         issueCategory: "వర్గం",
         issueTitle: "శీర్షిక",
         issueDescription: "వివరణ",

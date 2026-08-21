@@ -165,6 +165,14 @@ const Discussions = () => {
         }
     }
 
+    const renderNoDiscussionsView = () => {
+        return (
+            <div className="no-discussions-container">
+                <p className="no-discussions-text">{t('noDiscussions')}</p>
+            </div>
+        )
+    }
+
     return (
         <div className="discussions-container">
             <h1 className="discussions-title">Discussions</h1>
@@ -194,7 +202,7 @@ const Discussions = () => {
             :(
                 <ul className="discussion-list"> 
                     {
-                        filteredDiscussions.map(discussion => (
+                        filteredDiscussions.length === 0 ? renderNoDiscussionsView() : filteredDiscussions.map(discussion => (
                             <DiscussionsItem key={discussion.discussion_id} title={discussion.title} content={discussion.content} name={discussion.name} likesCount={discussion.likes_count} contentImage={discussion.image_url} createdAt={discussion.created_at} role={discussion.role} profilePictureUrl={discussion.profile_picture_url} />
                         ))
                     }

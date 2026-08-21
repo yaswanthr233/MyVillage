@@ -260,3 +260,11 @@
     height: 100%;
     margin-top: 10px;
 }
+
+.no-issues-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 10px;
+}

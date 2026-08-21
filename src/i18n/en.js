@@ -38,6 +38,7 @@ const en = {
         askOrShare: "Ask or Share",
         letUsKnow: "Let us know",
         stayUpdated: "Stay Updated",
+        noDiscussions: "No discussions available",
 
         recentDiscussions: "Recent Discussions",
 
@@ -84,6 +85,7 @@ const en = {
         // ISSUES
         // =====================
 
+        noIssues: "No issues available",
         reportProblems:
             "Report problems and track their status.",
 

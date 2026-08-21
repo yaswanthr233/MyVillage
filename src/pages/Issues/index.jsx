@@ -67,6 +67,14 @@ const Issues =  () => {
             </div>
         )
     }
+
+    const renderNoIssuesView = () => {
+        return (
+            <div className="no-issues-container">
+                <p className="no-issues-text">{t('noIssues')}</p>
+            </div>
+        )
+    }
     const onSearchIssues = (event) => {
         setSearchQuery(event.target.value);
         const filtered = issues.filter(issue => 
@@ -183,7 +191,7 @@ const Issues =  () => {
                 <button className={`issues-filter-btn ${activeCategory === 'RESOLVED' ? 'active' : ''}`} onClick={onFilterResolved}>{t('Resolved')}</button>
             </div>
             <ul className="issues-list-container">
-                {filteredIssues.map(issue => (
+                {filteredIssues.length === 0 ? renderNoIssuesView() : filteredIssues.map(issue => (
                     <IssueItem key={issue.id} title={issue.title} description={issue.description} location={issue.location} userName={issue.name} createdAt={issue.created_at} status={issue.status} image={issue.image_url} profilePictureUrl={issue.profile_picture_url} id={issue.id} />
                 ))}
             </ul>

@@ -14,6 +14,7 @@ import IssuesProvider from './contexts/IssuesProvider/index.jsx'
 import DiscussionsProvider from './contexts/DiscussionsProvider/index.jsx'
 import { useState } from 'react'
 import IssueDetails from './components/IssueDetails/index.jsx'
+import NotFound from './components/NotFound/index.jsx'
 
 function App() {
   const location = useLocation()
@@ -74,7 +75,9 @@ function App() {
             </IssuesProvider>
           </ProtectedRoute>
         } />
+         <Route path="*" element={<NotFound />} />
       </Routes>
+     
       {!hideLayout && <Footer/>}
       </div>
   )

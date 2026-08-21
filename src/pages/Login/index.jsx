@@ -7,6 +7,7 @@ import { useState } from 'react'
 import Cookies from 'js-cookie'
 import {HashLoader} from "react-spinners";
 import { Navigate } from 'react-router-dom';
+import ServerError from '../../components/ServerError/index.jsx';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -17,6 +18,7 @@ const Login = () => {
         navigate('/register')
     } 
     const [isLoading, setIsLoading] = useState(false);
+    const [serverError, setServerError] = useState(false);
     const [userDetails, setUserDetails] = useState({
         email: '',
         password: ''
@@ -72,9 +74,15 @@ const Login = () => {
                 email: !userDetails.email,
                 password: !userDetails.password
             });
+            setServerError(true);
         }
 
     }
+
+    const renderServerError = () => {
+        return <ServerError />
+    }
+
     const renderRegisterView = () => {
          return (
         <div className="bg-container-login">
@@ -133,6 +141,6 @@ const Login = () => {
             </div>
         )
     }
-    return <>{isLoading ? renderLoadingView() : renderRegisterView()}</>
+    return <>{isLoading ? renderLoadingView() : serverError ? renderServerError() : renderRegisterView()}</>
  }
 export default Login

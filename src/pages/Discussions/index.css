@@ -33,6 +33,7 @@
     border-radius: 10px;
     padding: 5px 10px;
     background-color: #f5f5f5;
+    box-sizing: border-box;
 }
 
 .search-input{
@@ -41,6 +42,7 @@
     width: 100%;
     padding: 5px;
     font-size: 14px;
+    margin-top: 10px;
     background-color: transparent;
 }
 
@@ -280,6 +282,14 @@ input{
 }
 
 .loading-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    margin-top: 10px;
+}
+
+.no-discussions-container{
     display: flex;
     justify-content: center;
     align-items: center;

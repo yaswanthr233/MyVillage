@@ -38,6 +38,7 @@ const Home = () => {
     useEffect(() => {
         fetchDiscussions();
         setIsLoading(false);
+
     }, []);
 
     const changeLanguage = (lang) => {

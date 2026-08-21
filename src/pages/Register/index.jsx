@@ -10,6 +10,7 @@ import Cookies from 'js-cookie'
 import { Navigate } from 'react-router-dom';
 import Popup from 'reactjs-popup'
 import {HashLoader} from "react-spinners";
+import ServerError from '../../components/ServerError/index.jsx';
 
 const Register = () => {
     if(Cookies.get('jwt_token') !== undefined){
@@ -24,6 +25,7 @@ const Register = () => {
         village: ''
     });
     const [isLoading, setIsLoading] = useState(false);
+    const [serverError, setServerError] = useState(false);
     const [errorMessage, setErrorMessage] = useState({
         name: 'hide',
         phoneNumber: 'hide',
@@ -39,6 +41,7 @@ const Register = () => {
     const onNavigateToLogin = () => {
         navigate('/login')
     }
+
 
     const onRegisterAccount  = async (e) => {
         e.preventDefault();
@@ -70,6 +73,8 @@ const Register = () => {
                 if(errorData.includes('User already exists')){
                     setIsEmailExists(true);
                     console.error('Error:', errorData);
+                } else {
+                    setServerError(true);
                 }
             }
         } else {
@@ -81,6 +86,12 @@ const Register = () => {
             })
         }
     }
+
+    const renderServerError = () => {
+        return <ServerError />
+    }
+
+
    const renderTermsModal = () => {
     return (
         showTerms && (
@@ -483,6 +494,10 @@ Village: Dondapadu Village
             </div>
         )
     }
-    return <>{isLoading ? renderLoadingPage() : renderLoginPage()}</>
+    return <>
+    {
+        isLoading ? renderLoadingPage() : serverError ? renderServerError() : renderLoginPage()
+    }
+    </>
 }
 export default Register
