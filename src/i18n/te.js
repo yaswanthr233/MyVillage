@@ -91,6 +91,8 @@ const te = {
         streetLights: "వీధి దీపాలు",
         other: "ఇతర",
         infrastructure: "ఇన్‌ఫ్రాస్ట్రక్చర్",
+        uploadImage: "చిత్రాన్ని అప్‌లోడ్ చేయండి",
+        beResctful: "గౌరవంగా ఉండండి",
 
 
         issueCategory: "వర్గం",

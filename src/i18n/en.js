@@ -90,6 +90,8 @@ const en = {
             "Report problems and track their status.",
 
         searchIssues: "Search issues...",
+        beRespectful: "Be respectful and follow the community guidelines.",
+        uploadImage: "Upload Image (At least one required)",
 
         open: "Open",
         inProgress: "In Progress",
